@@ -4,4 +4,10 @@
 # Examples:
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+#   Mayor.create(name: 'Emanuel', city: cities.first)''
+
+@users = ['Tom', 'Todd', 'Tony', 'Tabish', 'Jeff', 'Top']
+
+@users.each do |name| 
+    User.create(name: name)
+end
