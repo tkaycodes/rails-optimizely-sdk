@@ -9,12 +9,15 @@ class ApplicationController < ActionController::Base
     session[:optimizely_user] ||= SecureRandom.hex
   end
 
+  def optimizely_client 
+    url = 'https://cdn.optimizely.com/json/9030030860.json'
+    datafile = HTTParty.get(url).body
+    Optimizely::Project.new(datafile)
+  end
+
   protected
 
   def optimizely_variation
-    url = 'https://cdn.optimizely.com/json/9030030860.json'
-    datafile = HTTParty.get(url).body
-    optimizely_client = Optimizely::Project.new(datafile)
     optimizely_client.activate('tabish_experiment', optimizely_user);
 
     # TO DO: NEED TO INCLUDE AUDIENCE TARGETING
@@ -30,8 +33,8 @@ class ApplicationController < ActionController::Base
     
     # # Track a conversion event for the provided user with attributes
     # optimizely_client.track(event_key, user_id, attributes)
-
   end
+
 
 
 end

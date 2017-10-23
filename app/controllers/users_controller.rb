@@ -21,10 +21,12 @@ class UsersController < ApplicationController
     private
 
     def is_var_A
+        optimizely_client.track('VAR_A_VISIT', optimizely_user)
         optimizely_variation === "varA"
     end
 
     def is_control
+        optimizely_client.track('CONTROL_VISIT', optimizely_user)
         optimizely_variation === "control"
     end
 
