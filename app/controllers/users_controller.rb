@@ -5,8 +5,10 @@ class UsersController < ApplicationController
         @users = User.all
 
         if is_var_A
+            optimizely_client.track('VAR_A_VISIT', optimizely_user)            
             render 'index_var_a'
         elsif is_control
+            optimizely_client.track('CONTROL_VISIT', optimizely_user)            
             render 'index_control'
         end
 
@@ -21,12 +23,10 @@ class UsersController < ApplicationController
     private
 
     def is_var_A
-        optimizely_client.track('VAR_A_VISIT', optimizely_user)
         optimizely_variation === "varA"
     end
 
     def is_control
-        optimizely_client.track('CONTROL_VISIT', optimizely_user)
         optimizely_variation === "control"
     end
 

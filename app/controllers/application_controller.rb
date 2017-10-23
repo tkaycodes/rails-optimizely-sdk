@@ -5,13 +5,14 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  DATA_FILE_URL = "https://cdn.optimizely.com/json/#{ ENV['OPTIMIZELY_TOKEN'] }.json"
+
   def optimizely_user
     session[:optimizely_user] ||= SecureRandom.hex
   end
 
   def optimizely_client 
-    url = 'https://cdn.optimizely.com/json/9030030860.json'
-    datafile = HTTParty.get(url).body
+    datafile = HTTParty.get(DATA_FILE_URL).body
     Optimizely::Project.new(datafile)
   end
 
